@@ -12,6 +12,12 @@
 
   <body>
     <%= render 'shared/navbar' %>
+    <nav>
+      <%= link_to 'Registrar como usuário', new_user_registration_path %>
+      <%= link_to 'Logar como usuário', new_user_session_path %>
+      <%= link_to 'Registrar como administrador', new_admin_registration_path %>
+      <%= link_to 'Logar como administrador', new_admin_session_path %>
+    </nav>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>
