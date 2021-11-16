@@ -1,26 +1,34 @@
-<h2>Log in</h2>
+<div class="form-border">
+  <h2 class="text-gray-700 text-xl font-bold mb-4">Entrar no <span class="text-purple-800 text-2xl font-bold">PagaPaga</span></h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-m-w-content">
+      <div class="mb-4">
+        <%= f.label :email, class: "form-label" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-text-field" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+      <div class="mb-4">
+        <%= f.label :password, class: "form-label" %>
+        <%= f.password_field :password, autocomplete: "current-password", class: "form-text-field" %>
+      </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <% if devise_mapping.rememberable? %>
+        
+        <div class="flex justify-center items-start sm:items-center">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me, class: "ml-1 text-gray-700 text-sm font-bold" %>
+        </div>
+      <% end %>
+
+      <div class="actions">
+        <%= f.submit "Entrar", class: "form-submit-button my-2" %>
+
+      </div>
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+  <div class="form-content-after-submit-button">
+    <%= render "admins/shared/links" %>
   </div>
-<% end %>
-
-<%= render "admins/shared/links" %>
+</div>
