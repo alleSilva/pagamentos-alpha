@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_24_234511) do
+ActiveRecord::Schema.define(version: 2021_11_30_201917) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 2021_11_24_234511) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "token"
+    t.integer "status", default: 5
     t.index ["company_id"], name: "index_boleto_settings_on_company_id"
     t.index ["payment_method_id"], name: "index_boleto_settings_on_payment_method_id"
   end
@@ -87,8 +88,40 @@ ActiveRecord::Schema.define(version: 2021_11_24_234511) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "token"
+    t.integer "status", default: 5
     t.index ["company_id"], name: "index_credit_card_settings_on_company_id"
     t.index ["payment_method_id"], name: "index_credit_card_settings_on_payment_method_id"
+  end
+
+  create_table "customer_payment_methods", force: :cascade do |t|
+    t.integer "type_of"
+    t.string "credit_card_name"
+    t.string "credit_card_number"
+    t.date "credit_card_expiration_date"
+    t.string "credit_card_security_code"
+    t.integer "company_id", null: false
+    t.integer "customer_id", null: false
+    t.string "token"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "pix_setting_id"
+    t.integer "boleto_setting_id"
+    t.integer "credit_card_setting_id"
+    t.index ["boleto_setting_id"], name: "index_customer_payment_methods_on_boleto_setting_id"
+    t.index ["company_id"], name: "index_customer_payment_methods_on_company_id"
+    t.index ["credit_card_setting_id"], name: "index_customer_payment_methods_on_credit_card_setting_id"
+    t.index ["customer_id"], name: "index_customer_payment_methods_on_customer_id"
+    t.index ["pix_setting_id"], name: "index_customer_payment_methods_on_pix_setting_id"
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string "name"
+    t.string "cpf"
+    t.string "token"
+    t.integer "company_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_customers_on_company_id"
   end
 
   create_table "payment_methods", force: :cascade do |t|
@@ -109,6 +142,7 @@ ActiveRecord::Schema.define(version: 2021_11_24_234511) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "token"
+    t.integer "status", default: 5
     t.index ["company_id"], name: "index_pix_settings_on_company_id"
     t.index ["payment_method_id"], name: "index_pix_settings_on_payment_method_id"
   end
@@ -120,17 +154,16 @@ ActiveRecord::Schema.define(version: 2021_11_24_234511) do
     t.integer "company_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "type_of", default: 0
     t.index ["company_id"], name: "index_products_on_company_id"
   end
 
-  create_table "subscriptions", force: :cascade do |t|
-    t.string "token"
-    t.text "name"
-    t.integer "status", default: 5
+  create_table "rejected_companies", force: :cascade do |t|
     t.integer "company_id", null: false
+    t.text "reason"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["company_id"], name: "index_subscriptions_on_company_id"
+    t.index ["company_id"], name: "index_rejected_companies_on_company_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -154,9 +187,15 @@ ActiveRecord::Schema.define(version: 2021_11_24_234511) do
   add_foreign_key "boleto_settings", "payment_methods"
   add_foreign_key "credit_card_settings", "companies"
   add_foreign_key "credit_card_settings", "payment_methods"
+  add_foreign_key "customer_payment_methods", "boleto_settings"
+  add_foreign_key "customer_payment_methods", "companies"
+  add_foreign_key "customer_payment_methods", "credit_card_settings"
+  add_foreign_key "customer_payment_methods", "customers"
+  add_foreign_key "customer_payment_methods", "pix_settings"
+  add_foreign_key "customers", "companies"
   add_foreign_key "pix_settings", "companies"
   add_foreign_key "pix_settings", "payment_methods"
   add_foreign_key "products", "companies"
-  add_foreign_key "subscriptions", "companies"
+  add_foreign_key "rejected_companies", "companies"
   add_foreign_key "users", "companies"
 end

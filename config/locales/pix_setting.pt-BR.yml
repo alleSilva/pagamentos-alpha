@@ -5,11 +5,15 @@ pt-BR:
       pix_setting: 'Pagamento PIX'
     attributes:
       pix_setting:
+        status: 'Estado'
         bank_code: 'Código do banco'
         pix_key: 'Chave PIX'
         payment_method_id: 'Meio de pagamento'
         payment_method: 'Meio de pagamento'
         company: 'Empresa'
+      pix_setting/status:
+        enabled: 'Habilitado'
+        disabled: 'Desabilitado'
   pix_settings:
     new:
       register_new_message: 'Digite as informações abaixo para registrar um novo pagamento PIX:'

@@ -26,4 +26,20 @@ describe 'Owner creates boleto payment setting' do
     expect(page).to have_content('Código do banco: 001')
     expect(owner.company.payment_settings).to include(BoletoSetting.first)
   end
+
+  it 'fails on leaving everything empty' do
+    owner = create(:user, :complete_company_owner)
+    company = owner.company
+    company.accepted!
+
+    create_list(:payment_method, 3, :boleto)
+
+    login_as owner, scope: :user
+    visit company_path owner.company
+    click_on 'Meios de pagamento configurados'
+    click_on 'Configurar novo boleto'
+    click_on 'Criar Pagamento por boleto'
+
+    expect(page).to have_content('não pode ficar em branco')
+  end
 end

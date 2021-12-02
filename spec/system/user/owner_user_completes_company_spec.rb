@@ -15,7 +15,6 @@ describe '(owner)User fills in company detail and sees aproval awaiting page' do
 
     expect(page).to have_content('Registro feito com sucesso!')
     expect(page).to have_content('Estado de aprovação: pendente')
-
     expect(page).to have_content('Razão social: Empresa numero 1')
     expect(page).to have_content('CNPJ: 12.123.123/0001-12')
     expect(page).to have_content('Endereço de faturamento: Endereço cidade tal rua tal etc')

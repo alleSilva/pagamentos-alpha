@@ -1,3 +1,11 @@
-<div>
+<div id=<%= payment_setting.token %>>
     <p><%= CreditCardSetting.human_attribute_name('company_code') %>: <%= payment_setting.company_code %></p>
+    <p><%= CreditCardSetting.human_attribute_name('status') %>: <%= CreditCardSetting.human_attribute_name("status.#{payment_setting.status}") %></p>
+    <div class="mx-5 lg:ml-20 my-auto">
+    <% if payment_setting.enabled? %>
+        <%= link_to t('common.disable'), disable_credit_card_setting_path(payment_setting), method: :post, class: "bg-white hover:text-red-700 text-red-600 font-bold mb-2 py-2 px-4 border border-red-600 rounded focus:outline-none" %>
+    <% else %>
+        <%= link_to t('common.enable'), enable_credit_card_setting_path(payment_setting), method: :post, class: "bg-white hover:text-green-700 text-green-600 font-bold mb-2 py-2 px-4 border border-green-600 rounded focus:outline-none" %>
+    <% end %>
+    </div>
 </div>

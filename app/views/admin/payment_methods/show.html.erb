@@ -24,8 +24,8 @@
   </div>
 <div class="mx-5 lg:ml-20 my-auto">
 <% if @payment_method.enabled? %>
-    <%= link_to 'Desabilitar', disable_admin_payment_method_path(@payment_method.id), method: :post, class: "bg-white hover:text-red-700 text-red-600 font-bold mb-2 py-2 px-4 border border-red-600 rounded focus:outline-none" %>
-<% elsif %>
+  <%= link_to 'Desabilitar', disable_admin_payment_method_path(@payment_method.id), method: :post, class: "bg-white hover:text-red-700 text-red-600 font-bold mb-2 py-2 px-4 border border-red-600 rounded focus:outline-none" %>
+<% else %>
   <%= link_to 'Habilitar', enable_admin_payment_method_path(@payment_method.id), method: :post, class: "bg-white hover:text-green-700 text-green-600 font-bold mb-2 py-2 px-4 border border-green-600 rounded focus:outline-none" %>
 <% end %>
 </div>

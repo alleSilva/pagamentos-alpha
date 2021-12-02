@@ -13,10 +13,9 @@ module Api
       end
 
       def show
-        @pix_setting = PixSetting.where(token: params[:id]).first
-        raise ActiveRecord::RecordNotFound if @pix_setting.nil?
+        @pix_setting = find_by_token!(PixSetting, params[:id])
 
-        return render_not_authorized if @pix_setting.company != @company
+        return render_not_authorized if @pix_setting&.company != @company
 
         render json: @pix_setting.as_json(
           except: %i[created_at updated_at property_type_id company_id payment_method_id],

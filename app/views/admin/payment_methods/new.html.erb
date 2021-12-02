@@ -49,7 +49,7 @@
     <%= f.file_field :icon, class: "flex " %>
 
     <% @payment_method.errors.full_messages_for(:icon).each do |message| %>
-      <div><%= message %></div>
+      <div class="mt-1 text-red-500"><%= message %></div>
     <% end %>
   </div>
 

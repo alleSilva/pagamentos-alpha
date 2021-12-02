@@ -13,16 +13,18 @@ describe 'Credit Card setting API' do
 
       credit_card_settings = create_list(:credit_card_setting, 3, company: company)
       credit_card_settings[2].payment_method.disabled!
+      first_cc = credit_card_settings[0]
+      second_cc = credit_card_settings[1]
       create_list(:credit_card_setting, 2, company: other_company)
 
       get '/api/v1/credit_card_settings', headers: { companyToken: company.token }
 
       expect(response).to have_http_status(200)
-      expect(parsed_body.first[:company_code]).to eq(credit_card_settings.first.company_code)
-      expect(parsed_body.first[:token]).to eq(credit_card_settings.first.token)
-      expect(parsed_body.first[:payment_method][:name]).to eq(credit_card_settings.first.payment_method.name)
-      expect(parsed_body.second[:company_code]).to eq(credit_card_settings.second.company_code)
-      expect(parsed_body.second[:token]).to eq(credit_card_settings.second.token)
+      expect(parsed_body.first[:credit_card_setting][:company_code]).to eq(first_cc.company_code)
+      expect(parsed_body.first[:credit_card_setting][:token]).to eq(first_cc.token)
+      expect(parsed_body.first[:credit_card_setting][:payment_method][:name]).to eq(first_cc.payment_method.name)
+      expect(parsed_body.second[:credit_card_setting][:company_code]).to eq(second_cc.company_code)
+      expect(parsed_body.second[:credit_card_setting][:token]).to eq(second_cc.token)
       expect(parsed_body.count).to eq(2)
     end
 
@@ -50,16 +52,16 @@ describe 'Credit Card setting API' do
       company = owner.company
       company.accepted!
 
-      credit_card_settings = create_list(:credit_card_setting, 3, company: company)
-      credit_card_settings.first.payment_method.disabled!
+      cc_settings = create_list(:credit_card_setting, 3, company: company)
+      cc_settings.first.payment_method.disabled!
 
-      get "/api/v1/credit_card_settings/#{credit_card_settings.first.token}", headers: { companyToken: company.token }
+      get "/api/v1/credit_card_settings/#{cc_settings.first.token}", headers: { companyToken: company.token }
 
       expect(response).to have_http_status(200)
-      expect(parsed_body[:company_code]).to eq(credit_card_settings.first.company_code)
-      expect(parsed_body[:token]).to eq(credit_card_settings.first.token)
-      expect(parsed_body[:payment_method][:status]).to eq(credit_card_settings.first.payment_method.status)
-      expect(parsed_body[:payment_method][:name]).to eq(credit_card_settings.first.payment_method.name)
+      expect(parsed_body[:credit_card_setting][:company_code]).to eq(cc_settings.first.company_code)
+      expect(parsed_body[:credit_card_setting][:token]).to eq(cc_settings.first.token)
+      expect(parsed_body[:credit_card_setting][:payment_method][:status]).to eq(cc_settings.first.payment_method.status)
+      expect(parsed_body[:credit_card_setting][:payment_method][:name]).to eq(cc_settings.first.payment_method.name)
     end
 
     it 'should return 404 if setting does not exist' do
@@ -95,7 +97,7 @@ describe 'Credit Card setting API' do
 
       credit_card_setting = create(:credit_card_setting, company: company)
 
-      allow(CreditCardSetting).to receive(:where).and_raise(ActiveRecord::ActiveRecordError)
+      allow(CreditCardSetting).to receive(:find_by).and_raise(ActiveRecord::ActiveRecordError)
 
       get "/api/v1/credit_card_settings/#{credit_card_setting.id}", headers: { companyToken: company.token }
 

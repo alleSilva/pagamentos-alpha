@@ -15,7 +15,7 @@
       <%= render 'shared/admin_navbar' %>
     <% end %>
 
-    <% if current_user %>
+    <% if current_user && current_user.company.accepted? %>
       <%= render 'shared/user_navbar' %>
     <% end %>
     

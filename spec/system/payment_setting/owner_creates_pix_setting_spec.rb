@@ -24,4 +24,24 @@ describe 'Owner creates pix payment setting' do
     expect(page).to have_content('Código do banco: 001')
     expect(owner.company.payment_settings).to include(PixSetting.first)
   end
+
+  it 'fails on empty key' do
+    owner = create(:user, :complete_company_owner)
+    company = owner.company
+    company.accepted!
+
+    pix_method, * = create_list(:payment_method, 3, :pix)
+
+    login_as owner, scope: :user
+    visit company_path owner.company
+    click_on 'Meios de pagamento configurados'
+    click_on 'Configurar novo pix'
+
+    fill_in 'Chave PIX', with: ''
+    fill_in 'Código do banco', with: '001'
+    select pix_method.name, from: 'Meio de pagamento'
+    click_on 'Criar Pagamento PIX'
+
+    expect(page).to have_content('Chave PIX não pode ficar em branco')
+  end
 end

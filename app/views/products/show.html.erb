@@ -2,9 +2,9 @@
   <div class="p-2">
     <% if user_signed_in? %>
       <p class="ml-4 text-purple-900 font-semibold hover:text-purple-800 transition duration-300"">
-        <span class="text-gray-700 font-medium"><%= Subscription.human_attribute_name('name') %>: </span><%= @product.name %>
+        <span class="text-gray-700 font-medium"><%= Product.human_attribute_name('name') %>: </span><%= @product.name %>
       </p>
-      <p class="ml-4 text-gray-700 font-medium"><%= Subscription.human_attribute_name('status') %>: 
+      <p class="ml-4 text-gray-700 font-medium"><%= Product.human_attribute_name('status') %>: 
         <% if @product.enabled? %>
           <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-md"><%= t @product.status %></span>
         <% else %>

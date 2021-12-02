@@ -1,0 +1,31 @@
+<% if admin_signed_in? && @company.status != 'rejected' %>
+    <div>
+        <div>
+            <div>
+                Empresa: <%= @company.legal_name %>
+            </div>
+            <div>
+                Empresa: <%= @company.users.where(owner: true).first.email %>
+            </div>
+        </div>
+        <div>
+            <%= form_with(model: @rejected_company, url: company_rejected_companies_path(@company, @rejected_company)) do |f| %>
+                <div>
+                    <%= f.label :reason, "Descreva o motivo da #{@company.legal_name} ser negada" %>
+                    <% @rejected_company.errors.full_messages_for(:reason).each do |message| %>
+                        <div><%= message %></div>
+                    <% end %>
+                    <% @rejected_company.errors.full_messages_for(:company_id).each do |message| %>
+                        <div><%= message %></div>
+                    <% end %>
+                    <%= f.text_field :reason %>
+                </div>
+                <%= f.submit 'Rejeitar Empresa' %>
+            <% end %>
+        </div>
+    </div>
+<% else %>
+    <div>
+        Empresa já rejeitada
+    </div>
+<% end %>

@@ -18,12 +18,12 @@ describe 'Pix setting API' do
       get '/api/v1/pix_settings', headers: { companyToken: company.token }
 
       expect(response).to have_http_status(200)
-      expect(parsed_body.first[:pix_key]).to eq(pix_settings.first.pix_key)
-      expect(parsed_body.first[:token]).to eq(pix_settings.first.token)
-      expect(parsed_body.first[:bank_code]).to eq(pix_settings.first.bank_code)
-      expect(parsed_body.first[:payment_method][:name]).to eq(pix_settings.first.payment_method.name)
-      expect(parsed_body.second[:pix_key]).to eq(pix_settings.second.pix_key)
-      expect(parsed_body.second[:token]).to eq(pix_settings.second.token)
+      expect(parsed_body.first[:pix_setting][:pix_key]).to eq(pix_settings.first.pix_key)
+      expect(parsed_body.first[:pix_setting][:token]).to eq(pix_settings.first.token)
+      expect(parsed_body.first[:pix_setting][:bank_code]).to eq(pix_settings.first.bank_code)
+      expect(parsed_body.first[:pix_setting][:payment_method][:name]).to eq(pix_settings.first.payment_method.name)
+      expect(parsed_body.second[:pix_setting][:pix_key]).to eq(pix_settings.second.pix_key)
+      expect(parsed_body.second[:pix_setting][:token]).to eq(pix_settings.second.token)
       expect(parsed_body.count).to eq(2)
     end
 
@@ -57,11 +57,11 @@ describe 'Pix setting API' do
       get "/api/v1/pix_settings/#{pix_settings.first.token}", headers: { companyToken: company.token }
 
       expect(response).to have_http_status(200)
-      expect(parsed_body[:pix_key]).to eq(pix_settings.first.pix_key)
-      expect(parsed_body[:token]).to eq(pix_settings.first.token)
-      expect(parsed_body[:bank_code]).to eq(pix_settings.first.bank_code)
-      expect(parsed_body[:payment_method][:status]).to eq(pix_settings.first.payment_method.status)
-      expect(parsed_body[:payment_method][:name]).to eq(pix_settings.first.payment_method.name)
+      expect(parsed_body[:pix_setting][:pix_key]).to eq(pix_settings.first.pix_key)
+      expect(parsed_body[:pix_setting][:token]).to eq(pix_settings.first.token)
+      expect(parsed_body[:pix_setting][:bank_code]).to eq(pix_settings.first.bank_code)
+      expect(parsed_body[:pix_setting][:payment_method][:status]).to eq(pix_settings.first.payment_method.status)
+      expect(parsed_body[:pix_setting][:payment_method][:name]).to eq(pix_settings.first.payment_method.name)
     end
 
     it 'should return 404 if setting does not exist' do
@@ -97,7 +97,7 @@ describe 'Pix setting API' do
 
       pix_setting = create(:pix_setting, company: company)
 
-      allow(PixSetting).to receive(:where).and_raise(ActiveRecord::ActiveRecordError)
+      allow(PixSetting).to receive(:find_by).and_raise(ActiveRecord::ActiveRecordError)
 
       get "/api/v1/pix_settings/#{pix_setting.token}", headers: { companyToken: company.token }
 

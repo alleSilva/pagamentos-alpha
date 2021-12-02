@@ -1,0 +1,44 @@
+<div>
+    <div>
+        <h3 class="m-5">Empresas Pendentes</h3>
+    </div>
+    <div>
+        <table class="m-full ml-5 mt-5 text-center rounded-lg shadow-md p-4 bg-white border">
+          <thead class="bg-gray-50 border-b">    
+            <tr>
+                <th>
+                    Owner
+                </th>
+                <th>
+                    Empresa
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Ação
+                </th>
+            </tr>
+          </thead>
+            <% @companies.each do |company| %>
+              <tbody>
+                <tr>
+                    <td  class="p-4 text-justify">
+                        <%= company.users.where(owner: true).first.email %>
+                    </td>
+                    <td  class="p-4 text-justify">
+                        <%= company.legal_name %>
+                    </td>
+                    <td  class="p-4 text-justify">
+                        <%= Company.human_attribute_name("status.#{company.status}").capitalize %>
+                    </td>
+                    <td  class="p-4 text-justify">
+                        <%= link_to 'Aprovar', accept_company_path(company), method: :post%>
+                        <%= link_to 'Rejeitar', new_company_rejected_company_path(company)%>
+                    </td>
+                </tr>
+              </tbody>
+            <% end %>
+        </table>
+    </div>
+</div>

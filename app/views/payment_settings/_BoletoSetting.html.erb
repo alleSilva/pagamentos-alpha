@@ -1,5 +1,13 @@
-<div>
+<div id=<%= payment_setting.token %>>
     <p><%= BoletoSetting.human_attribute_name('bank_code') %>: <%= payment_setting.bank_code %></p>
     <p><%= BoletoSetting.human_attribute_name('agency_number') %>: <%= payment_setting.agency_number %></p>
     <p><%= BoletoSetting.human_attribute_name('account_number') %>: <%= payment_setting.account_number %></p>
+    <p><%= BoletoSetting.human_attribute_name('status') %>: <%= BoletoSetting.human_attribute_name("status.#{payment_setting.status}") %></p>
+    <div class="mx-5 lg:ml-20 my-auto">
+    <% if payment_setting.enabled? %>
+        <%= link_to t('common.disable'), disable_boleto_setting_path(payment_setting), method: :post, class: "bg-white hover:text-red-700 text-red-600 font-bold mb-2 py-2 px-4 border border-red-600 rounded focus:outline-none" %>
+    <% else %>
+        <%= link_to t('common.enable'), enable_boleto_setting_path(payment_setting), method: :post, class: "bg-white hover:text-green-700 text-green-600 font-bold mb-2 py-2 px-4 border border-green-600 rounded focus:outline-none" %>
+    <% end %>
+    </div>
 </div>

@@ -1,40 +1,46 @@
+<p class="text-gray-800 font-medium ml-5 my-5 text-justify">
+  <b><%= Company.human_attribute_name('status') %>: </b>
+  <% if @company.pending? %>
+    <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-md">
+      <%= Company.human_attribute_name("status.#{@company.status}") %>
+    </span>
+  <% elsif @company.accepted? %>
+    <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-md">
+    <%= Company.human_attribute_name("status.#{@company.status}") %>
+    </span>
+  <% elsif @company.rejected?%>
+    <span class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-md">
+      <%= Company.human_attribute_name("status.#{@company.status}") %>
+    </span> 
+  <% end %>
+</p>
+
+<% if @company.accepted? %>
+    <%= link_to t('.configure_payment'), company_payment_settings_path(@company), class: "ml-5 text-purple-900 font-medium hover:underline" %>
+<% end %>
+
+<div class="max-w-lg ml-5 mt-5 mb-7 rounded-lg shadow-md p-4 bg-white border">
+  <ul>
+    <li class="text-justify text-gray-700 text-sm font-bold ml-5 my-2"><%= Company.human_attribute_name('legal_name') %>:
+    <span> <%= @company.legal_name %></span></li>
+    <li class="text-justify text-gray-700 text-sm font-bold ml-5 my-2"><%= Company.human_attribute_name('cnpj') %>:
+    <span> <%= @company.cnpj %></span></li>
+    <li class="inline text-justify text-gray-700 text-sm font-bold ml-5 my-2"><%= Company.human_attribute_name('billing_email') %>:
+    <span class="ml-10 sm:ml-1"><%= @company.billing_email %></span></li>
+    <li class="text-justify text-gray-700 text-sm font-bold ml-5 my-2"><%= Company.human_attribute_name('billing_address') %>:
+    <span><%= @company.billing_address %></span></li>
+    <% if @company.token %>
+      <p class="text-justify text-gray-700 text-sm font-bold ml-5 my-2"><%= t('.token_explanation') %></p>
+      <li class="text-justify text-gray-700 text-sm font-bold ml-5 my-2"><%= Company.human_attribute_name('token') %>:
+      <span><%= @company.token %></span></li>
+    <% end %>
+  </ul>
+</div>
+
 <% if current_user&.owns?(@company) %>
   <% if @company.pending? %>
-    <%= link_to 'Cancelar pedido de registro', company_cancel_registration_path(@company, id: @company.id), method: :put %>
+    <%= link_to 'Cancelar pedido de registro', company_cancel_registration_path(@company, id: @company.id), method: :put, class: "bg-white hover:text-red-800 text-red-700 font-bold ml-5 mt-5  py-2 px-4 border border-red-700 rounded focus:outline-non" %>
   <% else %>
-    <%= link_to 'Editar dados', edit_company_path(@company) %>
+    <%= link_to 'Editar dados', edit_company_path(@company), class: "bg-white hover:text-purple-700 text-purple-800 font-bold ml-5 mt-5 py-2 px-4 border border-purple-700 rounded focus:outline-non" %>
   <% end %>
 <% end %>
-
-<% if @company.accepted? %>
-  <%= 
-  link_to t('.register_new_subscription'), 
-  new_subscription_path
-  %>
-<% end %>
-
-<div>
-    <span><%= Company.human_attribute_name('status') %>: <%= Company.human_attribute_name("status.#{@company.status}") %></span>
-</div>
-
-<% if @company.accepted? %>
-    <%= link_to t('.configure_payment'), company_payment_settings_path(@company) %>
-<% end %>
-
-<div>
-    <dl>
-        <dt><%= Company.human_attribute_name('legal_name') %>: </dt>
-        <dd> <%= @company.legal_name %></dd>
-        <dt><%= Company.human_attribute_name('cnpj') %>: </dt>
-        <dd> <%= @company.cnpj %></dd>
-        <dt><%= Company.human_attribute_name('billing_email') %>: </dt>
-        <dd> <%= @company.billing_email %></dd>
-        <dt><%= Company.human_attribute_name('billing_address') %>: </dt>
-        <dd> <%= @company.billing_address %></dd>
-        <% if @company.token %>
-          <%= t('.token_explanation') %> <br>
-          <dt><%= Company.human_attribute_name('token') %>: </dt>
-          <dd> <%= @company.token %></dd>
-        <% end %>
-    </dl>
-</div>

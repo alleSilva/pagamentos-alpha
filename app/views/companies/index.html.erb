@@ -1,0 +1,45 @@
+<div>
+    <div class="w-auto">
+        <table class="m-full ml-5 mt-5 text-center rounded-lg shadow-md p-4 bg-white border">
+        <thead class="bg-gray-50 border-b">
+            <tr>
+                <th class="p-4 text-left text-gray-700 font-bold w-1/4">
+                    Owner
+                </th>
+                <th class="p-4 text-left text-gray-700 font-bold w-1/4">
+                    Empresa
+                </th>
+                <th class="p-4 text-left text-gray-700 font-bold w-1/4">
+                    Status
+                </th>
+                <th class="p-4 text-left text-gray-700 font-bold">
+                    Motivo de Rejeição
+                </th>
+            </tr>
+            </thead
+            <% @companies.each do |company| %>
+              <tbody>
+                <tr class="border-b">
+                    <td class="p-4 text-justify">
+                        <%= company.users.where(owner: true).first.email %>
+                    </td>
+                    <td class="p-4 text-justify">
+                        <%= company.legal_name %>
+                    </td>
+                    <td class="p-4 text-justify">
+                        <%= Company.human_attribute_name("status.#{company.status}").capitalize %>
+                    </td>
+                    <td class="p-4 text-justify">
+                        <% if company.status == 'rejected'%>
+                            <%= company.rejected_company.reason %>
+                        <% end %>
+                    </td>
+                </tr>
+              </tbody>
+            <% end %>
+        </table>
+    </div>
+    <div class="mt-5">
+        <%= link_to 'Empresas Pendentes', pending_companies_path, class: "m-5 text-purple-900 hover:underline"  %>
+    </div>
+</div>

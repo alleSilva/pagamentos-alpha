@@ -5,12 +5,16 @@ pt-BR:
       boleto_setting: 'Pagamento por boleto'
     attributes:
       boleto_setting:
+        status: 'Estado'
         agency_number: 'Número da agência'
         account_number: 'Número da conta'
         bank_code: 'Código do banco'
         payment_method_id: 'Meio de pagamento'
         payment_method: 'Meio de pagamento'
         company: 'Empresa'
+      boleto_setting/status:
+        enabled: 'Habilitado'
+        disabled: 'Desabilitado'
   boleto_settings:
     new:
       register_new_message: 'Digite as informações abaixo para registrar um novo pagamento por boleto:'

@@ -1,22 +1,24 @@
-<h2><%= t('.register_new_message') %></h2>
-
+<h2 class="text-gray-800 font-medium ml-5 my-5 text-justify"><%= t('.register_new_message') %></h2>
+<div class="max-w-lg ml-5 my-5 rounded-lg shadow-md p-4 bg-white border">
 <%= form_with(model: @credit_card_setting) do |f| %>
-  <div>
-    <%= f.label :company_code %>
-    <%= f.text_field :company_code %> 
+  <div class="mb-4">
+    <%= f.label :company_code, class: "form-label" %>
+    <%= f.text_field :company_code, class: "form-text-field" %> 
 
     <% @credit_card_setting.errors.full_messages_for(:company_code).each do |message| %>
-      <div><%= message %></div>
+      <div class="mt-1 text-red-600"><%= message %></div>
     <% end %>
   </div>
 
-  <div>
-    <%= f.label :payment_method_id %>
-    <%= f.select :payment_method_id, @payment_methods_dropdown %>
+  <div class="mb-4">
+    <%= f.label :payment_method_id, class: "form-label" %>
+    <%= f.select :payment_method_id, @payment_methods_dropdown, class: "bg-purple-800" %>
     <% @credit_card_setting.errors.full_messages_for(:payment_method_id).each do |message| %>
-      <div><%= message %></div>
+      <div class="mt-1 text-red-600"><%= message %></div>
     <% end %>
   </div>
-
-  <%= f.submit %>
+  <div class="mx-10 text-center bg-white hover:text-purple-700 text-purple-900 font-bold py-2 px-4 border border-purple-900 rounded-lg focus:outline-none">
+    <%= f.submit %>
+  </div>
 <% end %>
+</div>

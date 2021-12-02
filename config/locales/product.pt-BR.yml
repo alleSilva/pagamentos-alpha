@@ -11,6 +11,9 @@ pt-BR:
       product/status:
         enabled: 'Habilitado'
         disabled: 'Desabilitado'
+      product/type_of:
+        single: 'Produto avulso'
+        subscription: 'Assinatura'
   products:
     new:
       title: 'Crie um novo produto:'

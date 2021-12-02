@@ -5,10 +5,14 @@ pt-BR:
       credit_card_setting: 'Cartão de crédito'
     attributes:
       credit_card_setting:
+        status: 'Estado'
         company_code: 'Código do cartão'
         payment_method_id: 'Meio de pagamento'
         payment_method: 'Meio de pagamento'
         company: 'Empresa'
+      credit_card_setting/status:
+        enabled: 'Habilitado'
+        disabled: 'Desabilitado'
   credit_card_settings:
     new:
       register_new_message: 'Digite as informações abaixo para registrar um novo cartão de crédito:'
