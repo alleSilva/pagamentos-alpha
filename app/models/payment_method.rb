@@ -7,7 +7,7 @@ class PaymentMethod < ApplicationRecord
   enum status: { enabled: 5, disabled: 10 }
   enum type_of: { pix: 0, boleto: 5, credit_card: 10 }
 
-  validates :name, :fee, :maximum_fee, :icon, presence: true
+  validates :name, :fee, :maximum_fee, :icon, :type_of, presence: true
   validates :type_of, inclusion: { in: type_ofs.keys }
 
   def self.query_for_enabled

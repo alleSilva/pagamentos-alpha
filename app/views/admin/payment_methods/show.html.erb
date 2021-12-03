@@ -1,11 +1,11 @@
-<div class="flex border lg:w-1/2 max-w-ms mx-10 my-4 rounded-lg overflow-hidden">
+<div class="flex border lg:w-1/2 max-w-ms mx-10 mt-10 rounded-lg overflow-hidden">
+  <div class="w-36 p-4">
   <% if @payment_method.icon.attached? %>
-    <div class="flex items-center justify-center w-28 h-auto border-r p-1">
-      <%= image_tag "#{@payment_method.icon.filename}" %>
-    </div>
+    <image src="<%=(url_for(@payment_method.icon))%>">
   <% end %>
+  </div>
 
-  <div class="p-2">
+  <div class="p-2 border-l">
     <% if admin_signed_in? %>
       <p class="px-4 text-purple-900 font-semibold hover:text-purple-800 transition duration-300"">
         Nome: <%= @payment_method.name %>

@@ -6,6 +6,7 @@ class Company < ApplicationRecord
   has_many :products, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
   has_many :customers, dependent: :destroy
+  has_many :purchases, dependent: :destroy
   has_one :rejected_company, dependent: :destroy
 
   enum status: { incomplete: 0, pending: 10, accepted: 20, rejected: 30 }
@@ -23,18 +24,6 @@ class Company < ApplicationRecord
 
   def payment_settings
     pix_settings + credit_card_settings + boleto_settings
-  end
-
-  def find_enabled_payment_setting_by_token(token)
-    payment_settings.find do |ps|
-      ps.enabled? && ps.payment_method.enabled? && ps.token == token
-    end
-  end
-
-  # TODO: remover se não for utilizado
-  def list_payment_methods
-    pix_settings.map(&:payment_method) + credit_card_settings.map(&:payment_method) +
-      boleto_settings.map(&:payment_method)
   end
 
   def blank_all_info!

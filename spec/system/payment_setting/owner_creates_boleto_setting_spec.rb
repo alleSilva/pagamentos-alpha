@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'Owner creates boleto payment setting' do
   it 'successfully' do
     owner = create(:user, :complete_company_owner)
+    owner.confirm
     company = owner.company
     company.accepted!
 
@@ -17,7 +18,7 @@ describe 'Owner creates boleto payment setting' do
     fill_in 'Número da agência', with: '21321312421412'
     fill_in 'Código do banco', with: '001'
     select boleto_method.name, from: 'Meio de pagamento'
-    click_on 'Criar Pagamento por boleto'
+    click_on 'Criar configuração de pagamento'
 
     expect(current_path).to eq(company_payment_settings_path(owner.company))
     expect(page).to have_content('Pagamento configurado com sucesso')
@@ -29,6 +30,7 @@ describe 'Owner creates boleto payment setting' do
 
   it 'fails on leaving everything empty' do
     owner = create(:user, :complete_company_owner)
+    owner.confirm
     company = owner.company
     company.accepted!
 
@@ -38,7 +40,7 @@ describe 'Owner creates boleto payment setting' do
     visit company_path owner.company
     click_on 'Meios de pagamento configurados'
     click_on 'Configurar novo boleto'
-    click_on 'Criar Pagamento por boleto'
+    click_on 'Criar configuração de pagamento'
 
     expect(page).to have_content('não pode ficar em branco')
   end

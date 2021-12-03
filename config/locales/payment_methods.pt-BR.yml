@@ -16,6 +16,7 @@ pt-BR:
         fee: 'Taxa'
         maximum_fee: 'Taxa máxima'
         icon: 'Ícone'
+        type_of: 'Tipo'
   payment_methods:
     index:
       status_enebled_alert: 'O método de pagamento foi habilitado com sucesso!'

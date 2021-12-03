@@ -43,12 +43,8 @@ class CompaniesController < ApplicationController
   def accept
     @company = Company.find(params[:id])
 
-    if admin_signed_in?
-      @company.accepted!
-      redirect_to companies_path
-    else
-      redirect_to root_path
-    end
+    @company.accepted!
+    redirect_to companies_path
   end
 
   private

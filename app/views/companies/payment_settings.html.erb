@@ -4,7 +4,7 @@
         <%= 
         link_to "#{t('.new_payment_setting_prefix')} #{PaymentMethod.human_type_of_name(payment_method_type).downcase}", 
         "/#{payment_method_type}_settings/new",
-        class: "text-purple-900 hover:underline" 
+        class: "text-purple-900 font-medium hover:underline" 
         %>
         </div>
     <% end %>

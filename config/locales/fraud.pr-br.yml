@@ -1,0 +1,10 @@
+---
+pt-BR:
+  activerecord:
+    models:
+      fraud: 'fraude'
+    attributes:
+      fraud:
+        title: 'título'
+        description: 'descrição'
+        file: 'arquivo'

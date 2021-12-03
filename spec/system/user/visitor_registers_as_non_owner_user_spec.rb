@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'Visitor registers as (staff)user' do
   it 'successfully' do
     owner = create(:user, :complete_company_owner, email: 'owner@company.com')
+    owner.confirm
     owner.company.accepted!
 
     visit root_path
@@ -13,10 +14,8 @@ describe 'Visitor registers as (staff)user' do
     fill_in 'user_password_confirmation', with: '123456789'
     click_on 'commit'
 
-    expect(page).to have_content('Login efetuado com sucesso')
-    expect(page).to_not have_content('Você já se cadastrou no nosso sistema, mas '\
-                                     'agora precisa registrar a sua empresa! Preencha os dados abaixo para '\
-                                     'podermos conhecer sua empresa:')
+    expect(page).to have_content('Uma mensagem com um link de confirmação foi enviada para o seu endereço de e-mail.'\
+                                 ' Por favor, abra o link para confirmar a sua conta.')
     current_user = User.last
     expect(current_user.owner).to eq(false)
     expect(current_user.company).to eq(owner.company)

@@ -44,7 +44,7 @@ class Admin
     private
 
     def payment_method_params
-      params.require(:payment_method).permit(:name, :fee, :maximum_fee, :icon)
+      params.require(:payment_method).permit(:name, :fee, :maximum_fee, :type_of, :icon)
     end
   end
 end

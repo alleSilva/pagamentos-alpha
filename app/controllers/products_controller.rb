@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   before_action :authenticate_company_user, only: %i[enable disable]
 
   def index
-    @products = Product.all
+    @products = Product.where(company: current_user.company)
   end
 
   def show; end

@@ -1,0 +1,31 @@
+<div>
+    <div>
+        Empresa: <%= @purchase.company.legal_name %>
+    </div>
+    <div>
+        Cliente: <%= @purchase.customer_payment_method.customer.name %>
+    </div>
+    <div>
+        Valor: <%= number_to_currency @purchase.cost %>
+    </div>
+    <div>
+        Data da Compra: <%= I18n.l(@purchase.created_at.to_date) %>
+    </div>
+    <div>
+        Status: <%= t @purchase.status %>
+    </div>
+    <div>
+        Avaliação:
+        <div>
+            <div>
+                Título: <%= @purchase.fraud.title %>
+            </div>
+            <div>
+                Descrição: <%= @purchase.fraud.description %>
+            </div>
+            <div>
+                Arquivo de Avaliação: 
+            </div>
+        </div>
+    </div>
+</div>

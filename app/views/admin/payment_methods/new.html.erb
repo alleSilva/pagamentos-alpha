@@ -34,10 +34,7 @@
     <%= f.label :type_of, class: "form-label" %>
 
     <%= 
-    f.select :type_of, 
-    @payment_types_dropdown,
-    class: "form-text-field" 
-    %>
+    f.select :type_of, @payment_types_dropdown, class: "form-text-field" %>
 
     <% @payment_method.errors.full_messages_for(:type_of).each do |message| %>
       <div><%= message %></div>

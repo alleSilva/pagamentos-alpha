@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'User changes products status' do
   it 'to disabled successfully' do
     user = create(:user, :complete_company_owner)
+    user.confirm
     user.company.accepted!
     product = create(:product, company: user.company)
 
@@ -17,6 +18,7 @@ describe 'User changes products status' do
 
   it 'to enabled successfully' do
     user = create(:user, :complete_company_owner)
+    user.confirm
     user.company.accepted!
     product = create(:product, company: user.company)
     product.disabled!

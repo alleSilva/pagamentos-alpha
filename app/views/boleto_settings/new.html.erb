@@ -27,16 +27,20 @@
       <div class="mt-1 text-red-600"><%= message %></div>
     <% end %>
   </div>
-
-  <div class="mb-4">
-    <%= f.label :payment_method_id, class: "form-label" %>
+  
+  <% if @payment_methods_dropdown.present? %>
+  <div class="flex items-start lg:items-base">
+    <%= f.label :payment_method_id, class: "form-label mr-4" %>
     <%= f.select :payment_method_id, @payment_methods_dropdown %>
     <% @boleto_setting.errors.full_messages_for(:payment_method_id).each do |message| %>
       <div class="mt-1 text-red-600"><%= message %></div>
     <% end %>
   </div>
-  <div class="mx-10 text-center bg-white hover:text-purple-700 text-purple-900 font-bold py-2 px-4 border border-purple-900 rounded-lg focus:outline-none">
-    <%= f.submit %>
+  <div class="actions">
+    <%= f.submit "Criar configuração de pagamento", class: "form-submit-button my-5" %>
   </div>
+  <% elsif %>
+    <p class="mt-1 text-red-600">Meio de pagamento não disponivel</p>
+  <% end %>
 <% end %>
 </div>

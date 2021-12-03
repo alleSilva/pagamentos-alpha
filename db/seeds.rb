@@ -1,8 +1,20 @@
-owner = FactoryBot.create(:user, :complete_company_owner)
+owner = FactoryBot.create(
+    :user, :complete_company_owner, 
+    email: 'owner@gamestream.com'
+)
+owner.confirm
 gamestream = owner.company
 gamestream.accepted!
 gamestream.token = 'rVAfNGdvfh6va61nDv11'
 
+user = FactoryBot.create(
+    :user, 
+    email: 'staff@gamestream.com',
+    company: gamestream
+)
+user.confirm
+admin = FactoryBot.create(:admin, email:'admin@pagapaga.com.br')
+admin.confirm
 
 FactoryBot.create(
     :product,
@@ -29,7 +41,7 @@ other_owner = FactoryBot.create(:user, :complete_company_owner)
 company = owner.company
 company.accepted!
 
-FactoryBot.create(
+product = FactoryBot.create(
     :product,
     company: company,
     type_of: 'single',
@@ -113,7 +125,7 @@ FactoryBot.create(
     cpf: '12345678910'
 )
 
-FactoryBot.create(
+customer_payment_method2 = FactoryBot.create(
     :customer_payment_method,
     customer: customer,
     company: company,
@@ -121,10 +133,25 @@ FactoryBot.create(
     pix_setting: pix_setting
 )
 
-FactoryBot.create(
+customer_payment_method = FactoryBot.create(
     :customer_payment_method,
     customer: customer,
     company: company,
     type_of: 'boleto',
     boleto_setting: boleto_setting
 )
+
+
+FactoryBot.create(
+    :purchase,
+    customer_payment_method: customer_payment_method,
+    product: product,
+    company: company
+  )
+
+  FactoryBot.create(
+    :purchase,
+    customer_payment_method: customer_payment_method2,
+    product: product,
+    company: company
+  )

@@ -3,6 +3,7 @@ require 'rails_helper'
 describe '(owner)User registration generates empty company' do
   it 'successfully' do
     user = create(:user, owner: true)
+    user.confirm
 
     login_as user, scope: :user
     visit root_path
@@ -19,6 +20,7 @@ describe '(owner)User registration generates empty company' do
 
   it 'and cannot see navbar with options' do
     user = create(:user, owner: true)
+    user.confirm
 
     login_as user, scope: :user
     visit root_path

@@ -4,6 +4,7 @@ describe 'Visitor tries to change payment settings statuses' do
   context 'pix_setting' do
     it 'but fails on disabling and gets redirected' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
       company = owner.company
       company.accepted!
       pix_setting = create(:pix_setting, company: company)
@@ -16,6 +17,7 @@ describe 'Visitor tries to change payment settings statuses' do
 
     it 'but fails on enabling and gets redirected' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
       company = owner.company
       company.accepted!
       pix_setting = create(:pix_setting, company: company)
@@ -29,11 +31,13 @@ describe 'Visitor tries to change payment settings statuses' do
 
     it 'but fails on disabling(user from another company)' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
       company = owner.company
       company.accepted!
       pix_setting = create(:pix_setting, company: company)
 
       owner2 = create(:user, :complete_company_owner)
+      owner2.confirm
       company2 = owner2.company
       company2.accepted!
 
@@ -48,6 +52,7 @@ describe 'Visitor tries to change payment settings statuses' do
   context 'boleto_setting' do
     it 'but fails on disabling and gets redirected' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
       company = owner.company
       company.accepted!
       boleto_setting = create(:boleto_setting, company: company)
@@ -60,6 +65,7 @@ describe 'Visitor tries to change payment settings statuses' do
 
     it 'but fails on enabling and gets redirected' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
       company = owner.company
       company.accepted!
       boleto_setting = create(:boleto_setting, company: company)
@@ -73,11 +79,13 @@ describe 'Visitor tries to change payment settings statuses' do
 
     it 'but fails on disabling(user from another company)' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
       company = owner.company
       company.accepted!
       boleto_setting = create(:boleto_setting, company: company)
 
       owner2 = create(:user, :complete_company_owner)
+      owner2.confirm
       company2 = owner2.company
       company2.accepted!
 
@@ -92,6 +100,7 @@ describe 'Visitor tries to change payment settings statuses' do
   context 'credit_card_setting' do
     it 'but fails on disabling and gets redirected' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
       company = owner.company
       company.accepted!
       credit_card_setting = create(:credit_card_setting, company: company)
@@ -104,6 +113,7 @@ describe 'Visitor tries to change payment settings statuses' do
 
     it 'but fails on enabling and gets redirected' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
       company = owner.company
       company.accepted!
       credit_card_setting = create(:credit_card_setting, company: company)
@@ -117,11 +127,13 @@ describe 'Visitor tries to change payment settings statuses' do
 
     it 'but fails on disabling(user from another company)' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
       company = owner.company
       company.accepted!
       credit_card_setting = create(:credit_card_setting, company: company)
 
       owner2 = create(:user, :complete_company_owner)
+      owner2.confirm
       company2 = owner2.company
       company2.accepted!
 

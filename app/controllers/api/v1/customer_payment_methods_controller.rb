@@ -69,13 +69,6 @@ module Api
         )
       end
 
-      def find_payment_method
-        payment_setting = @company.find_enabled_payment_setting_by_token(
-          customer_payment_method_params[:payment_method_token]
-        )
-        payment_setting&.payment_method
-      end
-
       def success_json
         @customer_payment_method.as_json(
           only: %i[token type_of],

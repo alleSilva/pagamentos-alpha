@@ -1,0 +1,43 @@
+<div>
+    <table class="m-full ml-5 mt-5 text-center rounded-lg shadow-md p-4 bg-white border">
+        <thead class="bg-gray-50 border-b">    
+            <tr>
+                <th>
+                    Empresa
+                </th>
+                <th>
+                    Cliente
+                </th>
+                <th>
+                    Valor
+                </th>
+                <th>
+                    Data da Compra
+                </th>
+                <th>
+                    Avaliação
+                </th>
+            </tr>
+        </thead>
+        <% @purchases.each do |purchase| %>
+            <tbody>
+            <tr>
+                <td  class="p-4 text-justify">
+                    <%= purchase.company.legal_name %>
+                </td>
+                <td  class="p-4 text-justify">
+                    <%= purchase.customer_payment_method.customer.name %>
+                </td>
+                <td  class="p-4 text-justify">
+                    <%= number_to_currency purchase.cost %>
+                </td>
+                <td  class="p-4 text-justify">
+                    <%= I18n.l(purchase.created_at.to_date) %>
+                </td>
+                <td  class="p-4 text-justify">
+                    <%= link_to 'Acessar Avaliação', purchase_fraud_path(purchase, purchase.fraud)%>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</div>

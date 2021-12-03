@@ -1,11 +1,11 @@
 <div class="flex border lg:w-1/3 h-30 max-w-ms mx-10 my-4 rounded-lg overflow-hidden">
-  <% if payment_method.icon.attached? %>
-    <div class="flex items-center justify-center w-28 h-30 border-r p-1">
-      <%= image_tag "#{payment_method.icon.filename}" %>
-    </div>
-  <% end %>
-  <div class="p-2">
-    <div class="px-4 text-purple-900 font-semibold hover:text-purple-800 transition duration-300">
+<div class="w-36 p-4">
+<% if payment_method.icon.attached? %>
+  <image src="<%=(url_for(payment_method.icon))%>">
+<% end %>
+</div>
+  <div class="p-2 border-l-2">
+    <div class="px-4 text-purple-900 font-semibold hover:text-purple-800 hover:underline transition duration-300">
       <%= link_to payment_method.name, admin_payment_method_path(payment_method.id) %>
     </div>
     <p class="pl-4 text-gray-700 font-medium">
@@ -14,6 +14,7 @@
     <p class="pl-4 text-gray-700 font-medium">
       Taxa máxima: <%= number_to_currency payment_method.maximum_fee %>
     </p>
+    <p class="pl-4 text-gray-700 font-medium">Tipo: <%= PaymentMethod.human_type_of_name(payment_method.name) %></p>
     <p class="pl-4 text-gray-700 font-medium">Status: 
       <% if payment_method.enabled? %>
         <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-md"><%= t payment_method.status %></span>

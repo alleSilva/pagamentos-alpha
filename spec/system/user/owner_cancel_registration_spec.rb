@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'Owner cancel registration' do
   it 'successfully' do
     owner = create(:user, owner: true, company: create(:company))
+    owner.confirm
 
     login_as owner, scope: :user
     visit company_path owner.company

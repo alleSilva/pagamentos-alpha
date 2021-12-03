@@ -4,6 +4,7 @@ describe 'User changes payment settings statuses' do
   context 'pix_setting' do
     it 'can be disabled' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
       company = owner.company
       company.accepted!
       pix_setting = create(:pix_setting, company: company)
@@ -20,6 +21,7 @@ describe 'User changes payment settings statuses' do
 
     it 'can be enabled' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
       company = owner.company
       company.accepted!
       pix_setting = create(:pix_setting, company: company)
@@ -39,6 +41,7 @@ describe 'User changes payment settings statuses' do
   context 'boleto_setting' do
     it 'can be disabled' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
       company = owner.company
       company.accepted!
       boleto_setting = create(:boleto_setting, company: company)
@@ -55,6 +58,7 @@ describe 'User changes payment settings statuses' do
 
     it 'can be enabled' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
       company = owner.company
       company.accepted!
       boleto_setting = create(:boleto_setting, company: company)
@@ -74,6 +78,7 @@ describe 'User changes payment settings statuses' do
   context 'credit_card_setting' do
     it 'can be disabled' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
       company = owner.company
       company.accepted!
       credit_card_setting = create(:credit_card_setting, company: company)
@@ -90,6 +95,7 @@ describe 'User changes payment settings statuses' do
 
     it 'can be enabled' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
       company = owner.company
       company.accepted!
       credit_card_setting = create(:credit_card_setting, company: company)

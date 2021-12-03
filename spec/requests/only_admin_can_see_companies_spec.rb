@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'only admin can see companies' do
   it 'so a user with no filed company try to access companies' do
     owner = create(:user, owner: true)
+    owner.confirm
 
     login_as owner, scope: :user
     get companies_path
@@ -12,6 +13,7 @@ describe 'only admin can see companies' do
 
   it 'so a user with filed company try to access companies' do
     owner = create(:user, :complete_company_owner)
+    owner.confirm
 
     login_as owner, scope: :user
     get companies_path
@@ -28,6 +30,7 @@ describe 'only admin can see companies' do
   context 'and only him can do actions' do
     it 'so a user tries to accept his own company' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
 
       login_as owner, scope: :user
       post accept_company_path(owner.company)
@@ -37,6 +40,7 @@ describe 'only admin can see companies' do
 
     it 'so a user tries to accept a random company' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
 
       post accept_company_path(owner.company)
 
@@ -45,6 +49,7 @@ describe 'only admin can see companies' do
 
     it 'so a user tries to reject his own company' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
 
       login_as owner, scope: :user
       post company_rejected_companies_path(owner.company)
@@ -54,6 +59,7 @@ describe 'only admin can see companies' do
 
     it 'so a user tries to reject a random company' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
 
       post company_rejected_companies_path(owner.company)
 

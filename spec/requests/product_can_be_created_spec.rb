@@ -4,6 +4,7 @@ describe 'Product can be created' do
   context 'new path' do
     it 'unless company is not accepted' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
 
       login_as owner, scope: :user
 
@@ -22,6 +23,7 @@ describe 'Product can be created' do
   context 'create path' do
     it 'unless company is not accepted' do
       owner = create(:user, :complete_company_owner)
+      owner.confirm
 
       login_as owner, scope: :user
 

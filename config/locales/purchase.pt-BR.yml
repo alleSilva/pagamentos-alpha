@@ -1,0 +1,15 @@
+---
+pt-BR:
+  fraud_pending: 'analise de fraude pendente'
+  pending: 'pagamento pendente'
+  rejected: 'pagamento rejeitado'
+  paid: 'pagamento aceito'
+  activerecord:
+    models:
+      purchase: 'cobrança'
+    attributes:
+      purchase:
+        cost: 'título'
+        paid_date: 'data de pagamento'
+        expiration_date: 'data de vencimento'
+      purchase/status:

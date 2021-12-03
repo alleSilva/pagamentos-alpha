@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'Owner sees company token' do
   it 'successfully if approved' do
     owner = create(:user, :complete_company_owner)
+    owner.confirm
     owner.company.accepted!
 
     login_as owner, scope: :user

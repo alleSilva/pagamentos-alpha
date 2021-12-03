@@ -27,21 +27,18 @@ cd pagamentos-alpha
 ```
 - Executar:
 ```
-bundle config set --local without production
-bundle install
-```
-- Em seguida executar:
-```
-rails webpacker:install
-```
-
-- Em seguida executar:
-```
-rails db:migrate
-rails db:seed
+bin/setup
 rails server
 ```
 Acesse a aplicação pelo navegador: digitando http://localhost:3000/ na barra de endereço.
+
+#### Usuários cadastrados pelo seeds.rb
+Todos os usuários a seguir tem como senha 123456789:
+| Email               | Tipo de conta | 
+| --------------------| ------------- |
+| admin@pagapaga.com.br  | Administrador |
+| owner@gamestream.com| Usuário(dono) |
+| staff@gamestream.com| Usuário(funcionário) |
 
 ## ⚙️ Executando os testes
 
@@ -57,21 +54,9 @@ Esse é o projeto final da etapa 2 da turma 7 do programa [Treinadev](https://tr
 Links com detalhes sobre o projeto:
 * [Diagrama de interações entre os models](https://docs.google.com/drawings/d/1JThfhFGx6O8p3lijoboJbZBGjQjlOXToAzejdqna3zs)
 
-## Features
-
-* Primeira sprint: Cadastros e meios de pagamento (em andamento)
-- [ ] Cadastro de administradores
-- [x] Cadastro de usuários
-- [x] Registro de empresas pelos usuários
-- [ ] Administradores podem aprovar ou rejeitar empresas
-- [ ] Administradores podem criar meios de pagamentos
-- [ ] Administradores podem desativar ou ativar meios de pagamentos
-- [ ] Usuários podem selecionar quais meios de pagamentos serão usados por suas empresas
-
-Mais features serão planejadas e implementadas no futuro!
-
 ## 🛠️ Construído com
 
 * [Ruby on Rails](https://rubyonrails.org/) - O framework web usado
 * [Bundle](https://bundler.io/) - Gerenciador de dependências (gems)
 * [Yarn](https://yarnpkg.com/) - Gerenciador de dependências do front-end 
+* [TailwindCSS](https://tailwindcss.com/) - Framework CSS

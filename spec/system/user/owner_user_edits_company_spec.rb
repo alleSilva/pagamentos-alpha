@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'Owner edits company' do
   it 'successfully if accepted' do
     owner = create(:user, :complete_company_owner)
+    owner.confirm
     owner.company.accepted!
 
     login_as owner, scope: :user
@@ -25,6 +26,7 @@ describe 'Owner edits company' do
 
   it 'but fails if pending' do
     owner = create(:user, :complete_company_owner)
+    owner.confirm
 
     login_as owner, scope: :user
     visit company_path(owner.company)
@@ -33,6 +35,7 @@ describe 'Owner edits company' do
 
   it 'succesfully if rejected but company returns to pending state' do
     owner = create(:user, :complete_company_owner)
+    owner.confirm
     owner.company.rejected!
 
     login_as owner, scope: :user
@@ -56,9 +59,11 @@ describe 'Owner edits company' do
 
   it 'and user from company cannot view edit link' do
     owner = create(:user, :complete_company_owner)
+    owner.confirm
     owner.company.accepted!
 
     user = create(:user, owner: false, company: owner.company)
+    user.confirm
 
     login_as user, scope: :user
     visit company_path(owner.company)

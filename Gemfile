@@ -14,6 +14,8 @@ gem 'sass-rails', '>= 6'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
 
+gem 'rufus-scheduler'
+
 group :development, :test do
  gem 'sqlite3'
 end
